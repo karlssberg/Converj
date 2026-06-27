@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/karlssberg/Converj/main/icon.png" width="80" align="right" alt="Converj" />
+<img src="https://raw.githubusercontent.com/karlssberg/Converj/main/icon.png" width="64" align="right" alt="Converj" />
 
 # Converj
 
