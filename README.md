@@ -1,3 +1,5 @@
+<img src="https://raw.githubusercontent.com/karlssberg/Converj/main/icon.png" width="64" align="right" hspace="15" alt="Converj" /> 
+
 # Converj
 
 [![NuGet](https://img.shields.io/nuget/v/Converj.svg)](https://www.nuget.org/packages/Converj/)
