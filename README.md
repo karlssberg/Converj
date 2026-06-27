@@ -1,5 +1,9 @@
 # Converj
 
+[![NuGet](https://img.shields.io/nuget/v/Converj.svg)](https://www.nuget.org/packages/Converj/)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/Converj.svg)](https://www.nuget.org/packages/Converj/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 Stop writing builders by hand. Curry them instead.
 
 Converj is a C# source generator that creates fluent builder patterns from your constructors and static methods.
@@ -39,6 +43,23 @@ Square<int>       square = Shape.WithWidth(10).CreateSquare();
 Rectangle<int> rectangle = Shape.WithWidth(10).WithHeight(20).CreateRectangle();
 Cube<int>           cube = Shape.WithWidth(10).WithHeight(20).WithDepth(30).CreateCube();
 ```
+
+Chains can also start as **extension methods** on an existing type. Mark the receiver with the `this` modifier (or `[This]`) and the chain begins from any value of that type:
+
+```csharp
+using Converj.Attributes;
+
+[FluentRoot(TerminalMethod = TerminalMethod.FixedName)]
+public static partial class StringExtensions;
+
+[FluentTarget(typeof(StringExtensions), TerminalVerb = "Pad")]
+public static string PadString(this string input, int width) => input.PadRight(width);
+
+// Usage — the chain starts from the receiver:
+string padded = "hello".WithWidth(80).Pad();
+```
+
+See [Extension Methods](#extension-methods) for the `[This]` form and details.
 
 Supports generics, records, primary constructors, required properties, type-first builder chains, static method targets, extension methods, custom method names, multiple overloads, return-type covariance, generic type parameter aliasing, named tuple unpacking, and more.
 
