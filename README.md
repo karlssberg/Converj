@@ -19,6 +19,8 @@ and the whole chain compiles down to zero-allocation, JIT optimizer-friendly cod
 
 
 ```csharp
+using Converj.Attributes;
+
 // You write this:
 [FluentRoot]
 public partial class Shape;
@@ -60,6 +62,26 @@ Or via Package Manager Console:
 ```powershell
 Install-Package Converj
 ```
+
+All attributes live in the `Converj.Attributes` namespace, so add `using Converj.Attributes;`
+(or a global using) to any file that annotates types.
+
+## Migrating from 1.x
+
+Version 2.0 renames the public attribute surface to clarify the root/target/terminal vocabulary.
+The behaviour is unchanged — only the names differ. Update your annotations as follows:
+
+| 1.x | 2.0 |
+| --- | --- |
+| `[FluentFactory]` | `[FluentRoot]` |
+| `[FluentConstructor(typeof(T))]` / `[FluentConstructor<T>]` | `[FluentTarget(typeof(T))]` / `[FluentTarget<T>]` |
+| `CreateMethod` property | `TerminalMethod` property |
+| `CreateMethod.Fixed` | `TerminalMethod.FixedName` |
+| `CreateMethod.None` | `TerminalMethod.None` |
+| `CreateVerb` | `TerminalVerb` |
+
+`[FluentMethod]`, `MethodPrefix`, and `ReturnType` are unchanged. Version 2.0 also adds static
+method targets and extension method targets — see the relevant sections below.
 
 ## Tutorial
 

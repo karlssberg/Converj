@@ -1,0 +1,46 @@
+name: Publish
+
+# Publishes the Converj package to nuget.org when a version tag is pushed, e.g.:
+#   git tag v2.0.0 && git push origin v2.0.0
+# Requires a repository secret named NUGET_API_KEY.
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # full history for SourceLink
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test --configuration Release --no-build --verbosity normal
+
+      # No --no-build: Converj.csproj packs with IncludeBuildOutput=false and a custom
+      # BuildDependenciesBeforePack target that invokes Build, which conflicts with NoBuild.
+      - name: Pack
+        run: dotnet pack src/Converj/Converj.csproj --configuration Release --output ${{ runner.temp }}/nupkg
+
+      - name: Push to nuget.org
+        run: >
+          dotnet nuget push "${{ runner.temp }}/nupkg/*.nupkg"
+          --source https://api.nuget.org/v3/index.json
+          --api-key "${{ secrets.NUGET_API_KEY }}"
+          --skip-duplicate

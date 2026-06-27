@@ -18,8 +18,26 @@
     <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageIcon>icon.png</PackageIcon>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageReleaseNotes>2.0 renames the public attribute surface: [FluentFactory] -> [FluentRoot], [FluentConstructor] -> [FluentTarget], CreateMethod -> TerminalMethod, CreateVerb -> TerminalVerb. Adds static method targets and extension method targets. See the "Migrating from 1.x" section in the README.</PackageReleaseNotes>
   </PropertyGroup>
+
+  <!-- Reproducible builds and source debugging -->
+  <PropertyGroup>
+    <Deterministic>true</Deterministic>
+    <!-- Stamp deterministic source paths only on CI to keep local builds debuggable -->
+    <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <!-- Embed symbols in the assemblies; the package hand-copies DLLs, so a separate
+         symbol package would not capture the generator/attributes PDBs -->
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="all" />
+  </ItemGroup>
 
   <!-- Version Management -->
   <PropertyGroup>

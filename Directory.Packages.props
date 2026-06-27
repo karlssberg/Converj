@@ -24,6 +24,8 @@
     <!-- Benchmark packages -->
     <PackageVersion Include="BenchmarkDotNet" Version="0.15.2" />
     <PackageVersion Include="BenchmarkDotNet.Diagnostics.dotTrace" Version="0.15.2" />
+    <!-- Build / packaging -->
+    <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="8.0.0" />
     <!-- Other packages -->
     <PackageVersion Include="Microsoft.CSharp" Version="4.7.0" />
   </ItemGroup>
