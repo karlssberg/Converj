@@ -1,5 +1,9 @@
 # Converj
 
+[![NuGet](https://img.shields.io/nuget/v/Converj.svg)](https://www.nuget.org/packages/Converj/)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/Converj.svg)](https://www.nuget.org/packages/Converj/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 Stop writing builders by hand. Curry them instead.
 
 Converj is a C# source generator that creates fluent builder patterns from your constructors and static methods.
