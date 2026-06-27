@@ -120,7 +120,7 @@ public class RequiredPropertyDiagnosticsTests
                 ExpectedDiagnostics =
                 {
                     DiagnosticResult.CompilerError("CS9035")
-                        .WithSpan("Converj.Generator\\Converj.Generator.FluentRootGenerator\\Test.Builder.g.cs", 14, 24, 14, 43)
+                        .WithSpan($"Converj.Generator{System.IO.Path.DirectorySeparatorChar}Converj.Generator.FluentRootGenerator{System.IO.Path.DirectorySeparatorChar}Test.Builder.g.cs", 14, 24, 14, 43)
                         .WithArguments("Test.Person.Email"),
                     DiagnosticResult.CompilerWarning(FluentMethodPropertyWithBuilderNone.Id)
                         .WithSpan(SourceFile, 14, 28, 14, 33)

@@ -852,7 +852,7 @@ public class DiagnosticsTests
                 ExpectedDiagnostics =
                 {
                     DiagnosticResult.CompilerError("CS0111")
-                        .WithSpan("Converj.Generator\\Converj.Generator.FluentRootGenerator\\MyNamespace.Builder.g.cs", 49, 44, 49, 57)
+                        .WithSpan($"Converj.Generator{System.IO.Path.DirectorySeparatorChar}Converj.Generator.FluentRootGenerator{System.IO.Path.DirectorySeparatorChar}MyNamespace.Builder.g.cs", 49, 44, 49, 57)
                         .WithArguments("CreateMyClass", "MyNamespace.Step_0__MyNamespace_Builder"),
                 },
                 GeneratedSources =
