@@ -1,0 +1,13 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="src/Converj.Attributes/Converj.Attributes.csproj" />
+  <Project Path="src/Converj.Example/Converj.Example.csproj" />
+  <Project Path="src/Converj.Generator.Tests/Converj.Generator.Tests.csproj" />
+  <Project Path="src/Converj.Generator/Converj.Generator.csproj" />
+  <Project Path="src/Converj.Tests/Converj.Tests.csproj" />
+  <Project Path="src/Converj/Converj.csproj" />
+</Solution>
