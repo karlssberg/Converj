@@ -15,6 +15,18 @@ jobs:
     permissions:
       contents: read
     steps:
+      # Fail fast before building if the tag isn't a valid NuGet version (e.g. 'vfoo'
+      # or 'v2.1' would otherwise pack a garbage or partial version). Matches
+      # MAJOR.MINOR.PATCH with optional -prerelease and +build metadata.
+      - name: Validate tag is a version
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          if ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?$ ]]; then
+            echo "::error::Tag '${GITHUB_REF_NAME}' does not yield a valid NuGet version ('${VERSION}'). Expected MAJOR.MINOR.PATCH, e.g. v2.1.0."
+            exit 1
+          fi
+          echo "Publishing version ${VERSION}"
+
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # full history for SourceLink
@@ -35,8 +47,13 @@ jobs:
 
       # No --no-build: Converj.csproj packs with IncludeBuildOutput=false and a custom
       # BuildDependenciesBeforePack target that invokes Build, which conflicts with NoBuild.
+      # The version comes from the tag (v2.1.0 -> 2.1.0), making the git tag the single
+      # source of truth so the package version can never drift from what triggered the run.
       - name: Pack
-        run: dotnet pack src/Converj/Converj.csproj --configuration Release --output ${{ runner.temp }}/nupkg
+        run: >
+          dotnet pack src/Converj/Converj.csproj --configuration Release
+          -p:Version="${GITHUB_REF_NAME#v}"
+          --output ${{ runner.temp }}/nupkg
 
       - name: Push to nuget.org
         run: >

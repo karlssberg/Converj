@@ -40,10 +40,11 @@
   </ItemGroup>
 
   <!-- Version Management -->
+  <!-- This is only a default for local builds. On CI the Publish workflow passes
+       -p:Version=<tag> (e.g. 2.1.0 from tag v2.1.0), which cascades to AssemblyVersion,
+       FileVersion, and PackageVersion. The git tag is the single source of truth for
+       released versions, so leave AssemblyVersion/FileVersion/PackageVersion unset here. -->
   <PropertyGroup>
-    <Version>2.0.0</Version>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.0.0.0</FileVersion>
-    <PackageVersion>2.0.0</PackageVersion>
+    <Version>0.0.0-dev</Version>
   </PropertyGroup>
 </Project>
